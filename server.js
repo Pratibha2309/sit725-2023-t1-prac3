@@ -1,27 +1,14 @@
-let express = require('express');
-let app = express();
-let port = process.env.port || 3000;
+var express = require("express");
+var app = express();
 
-app.use(express.static(__dirname + '/'));
-
-app.get('/', (req,res)=>{
-res.render('index.html')
-});
-
-app.get('/addTwoNumbers',(req,res)=>{
-let num1 = req.query.number1;
-let num2 = req.query.number2;
+app.use(express.static(__dirname + '/public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 
 
-let sum = parseInt(num1) + parseInt(num2);
+var port = process.env.port || 3000;
 
-let obj = {statusCode:200,message:'success', data:sum}
-
-res.json();
-
+app.listen(port,()=> {
+    console.log("App listening to:" + port);
 })
-
-app.listen(port,()=>{
-    console.log('server started');
-});
